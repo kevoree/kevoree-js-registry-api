@@ -1,3 +1,5 @@
+'use strict';
+
 var api = require('../index');
 var expect = require('expect');
 var nconf = require('nconf');
@@ -8,18 +10,6 @@ nconf.use('file', {
 
 describe('Tdefs test', function () {
   this.timeout(2000);
-
-  beforeEach(function (done) {
-    api.auth({
-        login: 'kevoree',
-        password: 'kevoree'
-      })
-      .then(function (oauth) {
-        nconf.set('user:token', oauth.access_token);
-        done();
-      })
-      .catch(done);
-  });
 
   it('should answer with all the type definitions', function (done) {
     api.tdefs()

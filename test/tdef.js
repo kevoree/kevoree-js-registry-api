@@ -1,3 +1,5 @@
+'use strict';
+
 var api = require('../index');
 var expect = require('expect');
 var nconf = require('nconf');
