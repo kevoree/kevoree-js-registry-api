@@ -9,7 +9,7 @@ nconf.use('file', {
 });
 
 describe('Auth test', function () {
-  this.timeout(2000);
+  this.timeout(500);
 
   it('should auth the user "kevoree"', function (done) {
     api.auth({

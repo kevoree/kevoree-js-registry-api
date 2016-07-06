@@ -9,7 +9,7 @@ nconf.use('file', {
 });
 
 describe('DeployUnit test', function () {
-  this.timeout(2000);
+  this.timeout(500);
 
   beforeEach(function (done) {
     api.auth({
@@ -57,6 +57,60 @@ describe('DeployUnit test', function () {
         model: '{}'
       })
       .create();
+  });
+
+  it('should return 404 when unknown namespace', function (done) {
+    api.du({
+        namespace: 'unknownnamespace',
+        tdefName: 'WSGroup',
+        tdefVersion: '1.0.0',
+        name: 'groupws',
+        version: '1.0.0',
+        platform: 'atari',
+        model: '{}'
+      })
+      .create()
+      .catch(function (err) {
+        expect(err).toExist();
+        expect(err.code).toEqual(404);
+        done();
+      });
+  });
+
+  it('should return 404 when unknown typeDef', function (done) {
+    api.du({
+        namespace: 'kevoree',
+        tdefName: 'unknown',
+        tdefVersion: '1.0.0',
+        name: 'groupws',
+        version: '1.0.0',
+        platform: 'atari',
+        model: '{}'
+      })
+      .create()
+      .catch(function (err) {
+        expect(err).toExist();
+        expect(err.code).toEqual(404);
+        done();
+      });
+  });
+
+  it('should return 404 when unknown version', function (done) {
+    api.du({
+        namespace: 'kevoree',
+        tdefName: 'WSGroup',
+        tdefVersion: '1.0.8',
+        name: 'groupws',
+        version: '1.0.0',
+        platform: 'atari',
+        model: '{}'
+      })
+      .create()
+      .catch(function (err) {
+        expect(err).toExist();
+        expect(err.code).toEqual(404);
+        done();
+      });
   });
 
   it('should delete a new kevoree.WSGroup/1.0.0 groupws/1.0.0/atari', function () {

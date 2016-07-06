@@ -9,7 +9,7 @@ nconf.use('file', {
 });
 
 describe('Tdefs test', function () {
-  this.timeout(2000);
+  this.timeout(500);
 
   it('should answer with all the type definitions', function (done) {
     api.tdefs()

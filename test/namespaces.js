@@ -9,7 +9,7 @@ nconf.use('file', {
 });
 
 describe('Namespaces test', function () {
-  this.timeout(2000);
+  this.timeout(500);
 
   it('should answer with all the namespaces', function (done) {
     api.namespaces()

@@ -9,7 +9,7 @@ nconf.use('file', {
 });
 
 describe('Refresh test', function () {
-  this.timeout(2000);
+  this.timeout(500);
 
   beforeEach(function (done) {
     api.auth({
