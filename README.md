@@ -13,9 +13,10 @@ Kevoree registry on localhost:8080 with the default test dataset.
    - [x] tdef
    - [x] tdefs *NOT FULLY*
    - [x] refresh
+   - [x] namespace
    - [x] namespaces
-   - [ ] namespace
-   - [ ] deployUnits
+   - [x] du
+   - [x] dus
  - **Tests:**
    - [ ] when registry is not reachable
    - [ ] over HTTPS

@@ -1,6 +1,9 @@
+exports.du         = require('./lib/du');
+exports.dus        = require('./lib/dus');
 exports.auth       = require('./lib/auth');
 exports.tdef       = require('./lib/tdef');
 exports.tdefs      = require('./lib/tdefs');
 exports.whoami     = require('./lib/whoami');
 exports.refresh    = require('./lib/refresh');
+exports.namespace  = require('./lib/namespace');
 exports.namespaces = require('./lib/namespaces');
