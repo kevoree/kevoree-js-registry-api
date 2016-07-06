@@ -7,17 +7,5 @@ Kevoree Registry Client API written in Javascript
 Kevoree registry on localhost:8080 with the default test dataset.
 
 ## TODO:
- - **Services:**
-   - [x] auth
-   - [x] whoami
-   - [x] tdef
-   - [x] tdefs *NOT FULLY*
-   - [x] refresh
-   - [x] namespace
-   - [x] namespaces
-   - [x] du
-   - [x] dus
  - **Tests:**
-   - [ ] when registry is not reachable
    - [ ] over HTTPS
-   - [ ] ...sure there is more
