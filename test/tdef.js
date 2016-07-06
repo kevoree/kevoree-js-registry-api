@@ -110,6 +110,21 @@ describe('Tdef test', function () {
       });
   });
 
+  it('should return 400 on wrong tdef structure', function (done) {
+    api.tdef({
+        namespace: 'kevoree',
+        name: 'MyType',
+        version: '25-SNAPSHOT',
+        model: '{}'
+      })
+      .create()
+      .catch(function (err) {
+        expect(err).toExist();
+        expect(err.code).toEqual(400);
+        done();
+      });
+  });
+
   it('should delete FakeType/1.2.3 in the "kevoree" namespace', function () {
     return api.tdef({
         namespace: 'kevoree',
