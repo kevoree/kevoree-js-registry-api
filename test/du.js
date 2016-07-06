@@ -11,16 +11,12 @@ nconf.use('file', {
 describe('DeployUnit test', function () {
   this.timeout(500);
 
-  beforeEach(function (done) {
-    api.auth({
+  beforeEach(function () {
+    return api.auth({
         login: 'kevoree',
         password: 'kevoree'
       })
-      .then(function (oauth) {
-        nconf.set('user:token', oauth.access_token);
-        done();
-      })
-      .catch(done);
+      .login();
   });
 
   it('should get kevoree.WSGroup/1.0.0 kevoree-group-ws/1.0.0/js precisely', function (done) {
@@ -109,6 +105,22 @@ describe('DeployUnit test', function () {
       .catch(function (err) {
         expect(err).toExist();
         expect(err.code).toEqual(404);
+        done();
+      });
+  });
+
+  it('should not create when model is not given', function (done) {
+    api.du({
+        namespace: 'kevoree',
+        tdefName: 'WSGroup',
+        tdefVersion: '1.0.0',
+        name: 'groupws',
+        version: '1.0.0',
+        platform: 'atari'
+      })
+      .create()
+      .catch(function (err) {
+        expect(err).toExist();
         done();
       });
   });

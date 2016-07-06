@@ -11,16 +11,12 @@ nconf.use('file', {
 describe('Namespace test', function () {
   this.timeout(500);
 
-  beforeEach(function (done) {
-    api.auth({
+  beforeEach(function () {
+    return api.auth({
         login: 'kevoree',
         password: 'kevoree'
       })
-      .then(function (oauth) {
-        nconf.set('user:token', oauth.access_token);
-        done();
-      })
-      .catch(done);
+      .login();
   });
 
   it('should get namespace "kevoree"', function (done) {
@@ -58,13 +54,15 @@ describe('Namespace test', function () {
   });
 
   it('should return 401 when not authenticated', function (done) {
-    // forget user:token => not connected
-    nconf.set('user:token', 'wontwork');
-
-    api.namespace({
-        name: 'wontwork'
+    api.auth()
+      .logout()
+      .then(function () {
+        return api
+          .namespace({
+            name: 'wontwork'
+          })
+          .create();
       })
-      .create()
       .catch(function (err) {
         expect(err).toExist();
         expect(err.code).toEqual(401);

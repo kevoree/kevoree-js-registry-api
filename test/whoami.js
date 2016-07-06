@@ -11,20 +11,15 @@ nconf.use('file', {
 describe('Whoami test', function () {
   this.timeout(500);
 
-  beforeEach(function (done) {
+  it('should answer "kevoree"', function (done) {
     api.auth({
         login: 'kevoree',
         password: 'kevoree'
       })
-      .then(function (oauth) {
-        nconf.set('user:token', oauth.access_token);
-        done();
+      .login()
+      .then(function () {
+        return api.whoami();
       })
-      .catch(done);
-  });
-
-  it('should answer "kevoree"', function (done) {
-    api.whoami()
       .then(function (user) {
         expect(user).toEqual('kevoree');
         done();

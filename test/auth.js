@@ -11,17 +11,34 @@ nconf.use('file', {
 describe('Auth test', function () {
   this.timeout(500);
 
-  it('should auth the user "kevoree"', function (done) {
+  it('should log the user "kevoree in"', function (done) {
     api.auth({
         login: 'kevoree',
         password: 'kevoree'
       })
-      .then(function (oauth) {
-        expect(oauth.access_token).toExist();
-        expect(oauth.token_type).toExist();
-        expect(oauth.refresh_token).toExist();
-        expect(oauth.expires_in).toBeLessThanOrEqualTo(1800);
-        expect(oauth.scope).toEqual('read write');
+      .login()
+      .then(function () {
+        var user = nconf.get('user');
+        expect(user.access_token).toExist();
+        expect(user.token_type).toExist();
+        expect(user.refresh_token).toExist();
+        expect(user.expires_in).toBeLessThanOrEqualTo(1800);
+        expect(user.scope).toEqual('read write');
+        done();
+      })
+      .catch(done);
+  });
+
+  it('should log the current user out', function (done) {
+    api.auth()
+      .logout()
+      .then(function () {
+        var user = nconf.get('user');
+        expect(user.access_token).toNotExist();
+        expect(user.token_type).toNotExist();
+        expect(user.refresh_token).toNotExist();
+        expect(user.expires_in).toNotExist();
+        expect(user.scope).toNotExist();
         done();
       })
       .catch(done);

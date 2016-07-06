@@ -11,16 +11,12 @@ nconf.use('file', {
 describe('Tdef test', function () {
   this.timeout(500);
 
-  beforeEach(function (done) {
-    api.auth({
+  beforeEach(function () {
+    return api.auth({
         login: 'kevoree',
         password: 'kevoree'
       })
-      .then(function (oauth) {
-        nconf.set('user:token', oauth.access_token);
-        done();
-      })
-      .catch(done);
+      .login();
   });
 
   it('should get WSGroup/1.0.0 precisely', function (done) {
@@ -80,16 +76,16 @@ describe('Tdef test', function () {
   });
 
   it('should return 401 when not authenticated', function (done) {
-    // forget user:token => not connected
-    nconf.set('user:token', 'wontwork');
-
-    api.tdef({
-        namespace: 'user',
-        name: 'WontHappen',
-        version: '1.2.3',
-        model: '{}'
+    api.auth()
+      .logout()
+      .then(function () {
+        return api.tdef({
+          namespace: 'user',
+          name: 'WontHappen',
+          version: '1.2.3',
+          model: '{}'
+        }).create();
       })
-      .create()
       .catch(function (err) {
         expect(err).toExist();
         expect(err.code).toEqual(401);

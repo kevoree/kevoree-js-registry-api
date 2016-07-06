@@ -11,17 +11,12 @@ nconf.use('file', {
 describe('Refresh test', function () {
   this.timeout(500);
 
-  beforeEach(function (done) {
-    api.auth({
+  beforeEach(function () {
+    return api.auth({
         login: 'kevoree',
         password: 'kevoree'
       })
-      .then(function (oauth) {
-        nconf.set('user:token', oauth.access_token);
-        nconf.set('user:refresh_token', oauth.refresh_token);
-        done();
-      })
-      .catch(done);
+      .login();
   });
 
   it('should refresh the user token', function (done) {
