@@ -124,16 +124,4 @@ describe('DeployUnit test', function () {
         done();
       });
   });
-
-  it('should delete a new kevoree.WSGroup/1.0.0 groupws/1.0.0/atari', function () {
-    return api.du({
-        namespace: 'kevoree',
-        tdefName: 'WSGroup',
-        tdefVersion: '1.0.0',
-        name: 'groupws',
-        version: '1.0.0',
-        platform: 'atari'
-      })
-      .delete();
-  });
 });
