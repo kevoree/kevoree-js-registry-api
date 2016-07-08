@@ -22,7 +22,7 @@ describe('Auth test', function () {
         expect(auth.access_token).toExist();
         expect(auth.token_type).toExist();
         expect(auth.refresh_token).toExist();
-        expect(auth.expires_in).toBeLessThanOrEqualTo(1800);
+        expect(auth.expires_at).toBeGreaterThanOrEqualTo(Math.floor(new Date().getTime() / 1000));
         expect(auth.scope).toEqual('read write');
         done();
       })
@@ -37,7 +37,7 @@ describe('Auth test', function () {
         expect(auth.access_token).toNotExist();
         expect(auth.token_type).toNotExist();
         expect(auth.refresh_token).toNotExist();
-        expect(auth.expires_in).toNotExist();
+        expect(auth.expires_at).toNotExist();
         expect(auth.scope).toNotExist();
         done();
       })

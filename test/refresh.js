@@ -21,12 +21,13 @@ describe('Refresh test', function () {
 
   it('should refresh the user token', function (done) {
     api.refresh()
-      .then(function (oauth) {
-        expect(oauth.access_token).toExist();
-        expect(oauth.token_type).toExist();
-        expect(oauth.refresh_token).toExist();
-        expect(oauth.expires_in).toBeLessThanOrEqualTo(1800);
-        expect(oauth.scope).toEqual('read write');
+      .then(function () {
+        var auth = nconf.get('auth');
+        expect(auth.access_token).toExist();
+        expect(auth.token_type).toExist();
+        expect(auth.refresh_token).toExist();
+        expect(auth.expires_at).toBeGreaterThanOrEqualTo(Math.floor(new Date().getTime() / 1000));
+        expect(auth.scope).toEqual('read write');
         done();
       })
       .catch(done);
