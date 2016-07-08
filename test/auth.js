@@ -18,12 +18,12 @@ describe('Auth test', function () {
       })
       .login()
       .then(function () {
-        var user = nconf.get('user');
-        expect(user.access_token).toExist();
-        expect(user.token_type).toExist();
-        expect(user.refresh_token).toExist();
-        expect(user.expires_in).toBeLessThanOrEqualTo(1800);
-        expect(user.scope).toEqual('read write');
+        var auth = nconf.get('auth');
+        expect(auth.access_token).toExist();
+        expect(auth.token_type).toExist();
+        expect(auth.refresh_token).toExist();
+        expect(auth.expires_in).toBeLessThanOrEqualTo(1800);
+        expect(auth.scope).toEqual('read write');
         done();
       })
       .catch(done);
@@ -33,12 +33,12 @@ describe('Auth test', function () {
     api.auth()
       .logout()
       .then(function () {
-        var user = nconf.get('user');
-        expect(user.access_token).toNotExist();
-        expect(user.token_type).toNotExist();
-        expect(user.refresh_token).toNotExist();
-        expect(user.expires_in).toNotExist();
-        expect(user.scope).toNotExist();
+        var auth = nconf.get('auth');
+        expect(auth.access_token).toNotExist();
+        expect(auth.token_type).toNotExist();
+        expect(auth.refresh_token).toNotExist();
+        expect(auth.expires_in).toNotExist();
+        expect(auth.scope).toNotExist();
         done();
       })
       .catch(done);
