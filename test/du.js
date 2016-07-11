@@ -9,7 +9,7 @@ nconf.use('file', {
 });
 
 describe('DeployUnit test', function () {
-  this.timeout(500);
+  this.timeout(3000);
 
   beforeEach(function () {
     return api.auth({
@@ -21,12 +21,16 @@ describe('DeployUnit test', function () {
 
   it('should get kevoree.WSGroup/1.0.0 kevoree-group-ws/1.0.0/js precisely', function (done) {
     api.du({
-        namespace: 'kevoree',
-        tdefName: 'WSGroup',
-        tdefVersion: '1.0.0',
         name: 'kevoree-group-ws',
         version: '1.0.0',
-        platform: 'js'
+        platform: 'js',
+        typeDefinition: {
+          name: 'WSGroup',
+          version: '1.0.0',
+          namespace: {
+            'name': 'kevoree'
+          }
+        }
       })
       .get()
       .then(function (du) {
@@ -42,24 +46,94 @@ describe('DeployUnit test', function () {
       .catch(done);
   });
 
-  it('should create a new kevoree.WSGroup/1.0.0 groupws/1.0.0/atari', function () {
-    return api.du({
-        namespace: 'kevoree',
-        tdefName: 'WSGroup',
-        tdefVersion: '1.0.0',
+  it('should create a new kevoree.WSGroup/1.0.0 groupws/1.0.0/atari', function (done) {
+    api.du({
         name: 'groupws',
         version: '1.0.0',
         platform: 'atari',
-        model: '{}'
+        typeDefinition: {
+          name: 'WSGroup',
+          version: '1.0.0',
+          namespace: {
+            'name': 'kevoree'
+          }
+        }
       })
-      .create();
+      .delete()
+      .finally(function () {
+        return api.du({
+            name: 'groupws',
+            version: '1.0.0',
+            platform: 'atari',
+            model: '{}',
+            typeDefinition: {
+              name: 'WSGroup',
+              version: '1.0.0',
+              namespace: {
+                'name': 'kevoree'
+              }
+            }
+          })
+          .create()
+          .then(function () {
+            done();
+          })
+          .catch(done);
+      });
+  });
+
+  it('should update kevoree.WSGroup/1.0.0 groupws/1.0.0/atari with new model {"foo": 42}', function (done) {
+    api.du({
+        name: 'groupws',
+        version: '1.0.0',
+        platform: 'atari',
+        typeDefinition: {
+          name: 'WSGroup',
+          version: '1.0.0',
+          namespace: {
+            'name': 'kevoree'
+          }
+        }
+      })
+      .get()
+      .then(function (du) {
+        du.model = '{"foo": 42}';
+        return api.du(du)
+          .update();
+      })
+      .then(function (res) {
+        expect(res.model).toEqual('{"foo": 42}');
+        done();
+      })
+      .catch(done);
+  });
+
+  it('should delete kevoree.WSGroup/1.0.0 groupws/1.0.0/atari', function () {
+    return api.du({
+        name: 'groupws',
+        version: '1.0.0',
+        platform: 'atari',
+        model: '{}',
+        typeDefinition: {
+          name: 'WSGroup',
+          version: '1.0.0',
+          namespace: {
+            'name': 'kevoree'
+          }
+        }
+      })
+      .delete();
   });
 
   it('should return 404 when unknown namespace', function (done) {
     api.du({
-        namespace: 'unknownnamespace',
-        tdefName: 'WSGroup',
-        tdefVersion: '1.0.0',
+        typeDefinition: {
+          name: 'WSGroup',
+          version: '1.0.0',
+          namespace: {
+            'name': 'unknownnamespace'
+          }
+        },
         name: 'groupws',
         version: '1.0.0',
         platform: 'atari',
@@ -75,9 +149,13 @@ describe('DeployUnit test', function () {
 
   it('should return 404 when unknown typeDef', function (done) {
     api.du({
-        namespace: 'kevoree',
-        tdefName: 'unknown',
-        tdefVersion: '1.0.0',
+        typeDefinition: {
+          name: 'Unknown',
+          version: '1.0.0',
+          namespace: {
+            'name': 'kevoree'
+          }
+        },
         name: 'groupws',
         version: '1.0.0',
         platform: 'atari',
@@ -93,9 +171,13 @@ describe('DeployUnit test', function () {
 
   it('should return 404 when unknown version', function (done) {
     api.du({
-        namespace: 'kevoree',
-        tdefName: 'WSGroup',
-        tdefVersion: '1.0.8',
+        typeDefinition: {
+          name: 'WSGroup',
+          version: '1.0.8',
+          namespace: {
+            'name': 'kevoree'
+          }
+        },
         name: 'groupws',
         version: '1.0.0',
         platform: 'atari',
@@ -111,9 +193,13 @@ describe('DeployUnit test', function () {
 
   it('should not create when model is not given', function (done) {
     api.du({
-        namespace: 'kevoree',
-        tdefName: 'WSGroup',
-        tdefVersion: '1.0.0',
+        typeDefinition: {
+          name: 'WSGroup',
+          version: '1.0.0',
+          namespace: {
+            'name': 'kevoree'
+          }
+        },
         name: 'groupws',
         version: '1.0.0',
         platform: 'atari'

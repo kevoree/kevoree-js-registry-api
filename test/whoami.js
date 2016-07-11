@@ -9,7 +9,7 @@ nconf.use('file', {
 });
 
 describe('Whoami test', function () {
-  this.timeout(500);
+  this.timeout(2000);
 
   it('should answer "kevoree"', function (done) {
     api.auth({

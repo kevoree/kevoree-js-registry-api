@@ -9,7 +9,7 @@ nconf.use('file', {
 });
 
 describe('DeployUnits test', function () {
-  this.timeout(500);
+  this.timeout(2000);
 
   it('should answer with all the deployUnits', function (done) {
     api.dus()
@@ -22,9 +22,7 @@ describe('DeployUnits test', function () {
   });
 
   it('should answer with all the deployUnits from namespace "kevoree"', function (done) {
-    api.dus({
-        namespace: 'kevoree'
-      })
+    api.dus('kevoree')
       .then(function (dus) {
         dus.forEach(function (du) {
           expect(du.typeDefinition.namespace.name).toEqual('kevoree');
@@ -35,10 +33,7 @@ describe('DeployUnits test', function () {
   });
 
   it('should answer with all the deployUnits from namespace "kevoree" with tdefName "WSGroup"', function (done) {
-    api.dus({
-        namespace: 'kevoree',
-        tdefName: 'WSGroup'
-      })
+    api.dus('kevoree', 'WSGroup')
       .then(function (dus) {
         dus.forEach(function (du) {
           expect(du.typeDefinition.namespace.name).toEqual('kevoree');
@@ -50,11 +45,7 @@ describe('DeployUnits test', function () {
   });
 
   it('should answer with all the deployUnits from namespace "kevoree" with tdefName "WSGroup" and tdefVersion "1.0.0"', function (done) {
-    api.dus({
-        namespace: 'kevoree',
-        tdefName: 'WSGroup',
-        tdefVersion: '1.0.0'
-      })
+    api.dus('kevoree', 'WSGroup', '1.0.0')
       .then(function (dus) {
         dus.forEach(function (du) {
           expect(du.typeDefinition.namespace.name).toEqual('kevoree');
@@ -67,12 +58,7 @@ describe('DeployUnits test', function () {
   });
 
   it('should answer with all the deployUnits from namespace "kevoree" with tdefName "WSGroup" and tdefVersion "1.0.0" and duName "kevoree-group-ws"', function (done) {
-    api.dus({
-        namespace: 'kevoree',
-        tdefName: 'WSGroup',
-        tdefVersion: '1.0.0',
-        name: 'kevoree-group-ws'
-      })
+    api.dus('kevoree', 'WSGroup', '1.0.0', 'kevoree-group-ws')
       .then(function (dus) {
         dus.forEach(function (du) {
           expect(du.typeDefinition.namespace.name).toEqual('kevoree');
@@ -86,13 +72,7 @@ describe('DeployUnits test', function () {
   });
 
   it('should answer with all the deployUnits from namespace "kevoree" with tdefName "WSGroup" and tdefVersion "1.0.0" and duName "kevoree-group-ws" and duVersion "1.0.0"', function (done) {
-    api.dus({
-        namespace: 'kevoree',
-        tdefName: 'WSGroup',
-        tdefVersion: '1.0.0',
-        name: 'kevoree-group-ws',
-        version: '1.0.0'
-      })
+    api.dus('kevoree', 'WSGroup', '1.0.0', 'kevoree-group-ws', '1.0.0')
       .then(function (dus) {
         dus.forEach(function (du) {
           expect(du.typeDefinition.namespace.name).toEqual('kevoree');

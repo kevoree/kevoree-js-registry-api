@@ -9,7 +9,7 @@ nconf.use('file', {
 });
 
 describe('Tdefs test', function () {
-  this.timeout(500);
+  this.timeout(2000);
 
   it('should answer with all the type definitions', function (done) {
     api.tdefs()
@@ -22,9 +22,7 @@ describe('Tdefs test', function () {
   });
 
   it('should answer with the list of kevoree\'s type definitions', function (done) {
-    api.tdefs({
-        namespace: 'kevoree'
-      })
+    api.tdefs('kevoree')
       .then(function (tdefs) {
         expect(tdefs).toExist();
         expect(tdefs.length).toBeMoreThan(0);
