@@ -82,11 +82,12 @@ describe('DeployUnit test', function () {
       });
   });
 
-  it('should update kevoree.WSGroup/1.0.0 groupws/1.0.0/atari with new model {"foo": 42}', function (done) {
+  it('should update kevoree.WSGroup/1.0.0 groupws/0.1.0-alpha/gameboy with new model {"foo": 42}', function (done) {
     api.du({
         name: 'groupws',
-        version: '1.0.0',
-        platform: 'atari',
+        version: '0.1.0-alpha',
+        platform: 'gameboy',
+        model: '{}',
         typeDefinition: {
           name: 'WSGroup',
           version: '1.0.0',
@@ -95,7 +96,7 @@ describe('DeployUnit test', function () {
           }
         }
       })
-      .get()
+      .create()
       .then(function (du) {
         du.model = '{"foo": 42}';
         return api.du(du)
@@ -113,7 +114,6 @@ describe('DeployUnit test', function () {
         name: 'groupws',
         version: '1.0.0',
         platform: 'atari',
-        model: '{}',
         typeDefinition: {
           name: 'WSGroup',
           version: '1.0.0',
