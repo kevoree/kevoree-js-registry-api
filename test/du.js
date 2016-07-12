@@ -19,14 +19,14 @@ describe('DeployUnit test', function () {
       .login();
   });
 
-  it('should get kevoree.WSGroup/1.0.0 kevoree-group-ws/1.0.0/js precisely', function (done) {
+  it('should get kevoree.WSGroup/1 kevoree-group-ws/1.0.0/js precisely', function (done) {
     api.du({
         name: 'kevoree-group-ws',
         version: '1.0.0',
         platform: 'js',
         typeDefinition: {
           name: 'WSGroup',
-          version: '1.0.0',
+          version: 1,
           namespace: {
             'name': 'kevoree'
           }
@@ -39,21 +39,21 @@ describe('DeployUnit test', function () {
         expect(du.version).toEqual('1.0.0');
         expect(du.platform).toEqual('js');
         expect(du.typeDefinition.name).toEqual('WSGroup');
-        expect(du.typeDefinition.version).toEqual('1.0.0');
+        expect(du.typeDefinition.version).toEqual(1);
         expect(du.typeDefinition.namespace.name).toEqual('kevoree');
         done();
       })
       .catch(done);
   });
 
-  it('should create a new kevoree.WSGroup/1.0.0 groupws/1.0.0/atari', function (done) {
+  it('should create a new kevoree.WSGroup/1 groupws/1.0.0/atari', function (done) {
     api.du({
         name: 'groupws',
         version: '1.0.0',
         platform: 'atari',
         typeDefinition: {
           name: 'WSGroup',
-          version: '1.0.0',
+          version: 1,
           namespace: {
             'name': 'kevoree'
           }
@@ -68,7 +68,7 @@ describe('DeployUnit test', function () {
             model: '{}',
             typeDefinition: {
               name: 'WSGroup',
-              version: '1.0.0',
+              version: 1,
               namespace: {
                 'name': 'kevoree'
               }
@@ -82,7 +82,7 @@ describe('DeployUnit test', function () {
       });
   });
 
-  it('should update kevoree.WSGroup/1.0.0 groupws/0.1.0-alpha/gameboy with new model {"foo": 42}', function (done) {
+  it('should update kevoree.WSGroup/1 groupws/0.1.0-alpha/gameboy with new model {"foo": 42}', function (done) {
     api.du({
         name: 'groupws',
         version: '0.1.0-alpha',
@@ -90,7 +90,7 @@ describe('DeployUnit test', function () {
         model: '{}',
         typeDefinition: {
           name: 'WSGroup',
-          version: '1.0.0',
+          version: 1,
           namespace: {
             'name': 'kevoree'
           }
@@ -109,14 +109,14 @@ describe('DeployUnit test', function () {
       .catch(done);
   });
 
-  it('should delete kevoree.WSGroup/1.0.0 groupws/1.0.0/atari', function () {
+  it('should delete kevoree.WSGroup/1 groupws/1.0.0/atari', function () {
     return api.du({
         name: 'groupws',
         version: '1.0.0',
         platform: 'atari',
         typeDefinition: {
           name: 'WSGroup',
-          version: '1.0.0',
+          version: 1,
           namespace: {
             'name': 'kevoree'
           }
@@ -129,7 +129,7 @@ describe('DeployUnit test', function () {
     api.du({
         typeDefinition: {
           name: 'WSGroup',
-          version: '1.0.0',
+          version: 1,
           namespace: {
             'name': 'unknownnamespace'
           }
@@ -151,7 +151,7 @@ describe('DeployUnit test', function () {
     api.du({
         typeDefinition: {
           name: 'Unknown',
-          version: '1.0.0',
+          version: 1,
           namespace: {
             'name': 'kevoree'
           }
@@ -173,7 +173,7 @@ describe('DeployUnit test', function () {
     api.du({
         typeDefinition: {
           name: 'WSGroup',
-          version: '1.0.8',
+          version: 42,
           namespace: {
             'name': 'kevoree'
           }
@@ -195,7 +195,7 @@ describe('DeployUnit test', function () {
     api.du({
         typeDefinition: {
           name: 'WSGroup',
-          version: '1.0.0',
+          version: 1,
           namespace: {
             'name': 'kevoree'
           }
@@ -209,5 +209,21 @@ describe('DeployUnit test', function () {
         expect(err).toExist();
         done();
       });
+  });
+
+  it('should delete kevoree.WSGroup/1 groupws/1.0.0/gameboy', function () {
+    return api.du({
+        name: 'groupws',
+        version: '0.1.0-alpha',
+        platform: 'gameboy',
+        typeDefinition: {
+          name: 'WSGroup',
+          version: 1,
+          namespace: {
+            'name': 'kevoree'
+          }
+        }
+      })
+      .delete();
   });
 });

@@ -19,28 +19,28 @@ describe('Tdef test', function () {
       .login();
   });
 
-  it('should get WSGroup/1.0.0 precisely', function (done) {
+  it('should get WSGroup/1 precisely', function (done) {
     api.tdef({
         namespace: { name: 'kevoree' },
         name: 'WSGroup',
-        version: '1.0.0'
+        version: 1
       })
       .get()
       .then(function (tdef) {
         expect(tdef).toExist();
         expect(tdef.name).toEqual('WSGroup');
-        expect(tdef.version).toEqual('1.0.0');
+        expect(tdef.version).toEqual(1);
         expect(tdef.namespace.name).toEqual('kevoree');
         done();
       })
       .catch(done);
   });
 
-  it('should return 404 on unknown tdef Yolo/8.5.9 in "foo"', function (done) {
+  it('should return 404 on unknown tdef Yolo/8 in "foo"', function (done) {
     api.tdef({
         namespace: { name: 'foo' },
         name: 'Yolo',
-        version: '8.5.9'
+        version: 8
       })
       .get()
       .catch(function (err) {
@@ -50,21 +50,37 @@ describe('Tdef test', function () {
       });
   });
 
-  it('should create a new FakeType/1.2.3 in the "kevoree" namespace', function () {
+  it('should create a new FakeType/1 in the "kevoree" namespace', function () {
     return api.tdef({
         namespace: { name: 'kevoree' },
         name: 'FakeType',
-        version: '1.2.3',
+        version: 1,
         model: '{}'
       })
       .create();
+  });
+
+  it('should get kevoree.Ticker/latest precisely', function (done) {
+    api.tdef({
+        name: 'Ticker',
+        namespace: { name: 'kevoree' }
+      })
+      .latest()
+      .then(function (tdef) {
+        expect(tdef).toExist();
+        expect(tdef.name).toEqual('Ticker');
+        expect(tdef.version).toEqual(3);
+        expect(tdef.namespace.name).toEqual('kevoree');
+        done();
+      })
+      .catch(done);
   });
 
   it('should return 403 when not member of namespace', function (done) {
     api.tdef({
         namespace: { name: 'user' },
         name: 'WontHappen',
-        version: '1.2.3',
+        version: 1,
         model: '{}'
       })
       .create()
@@ -82,7 +98,7 @@ describe('Tdef test', function () {
         return api.tdef({
           namespace: { name: 'user' },
           name: 'WontHappen',
-          version: '1.2.3',
+          version: 1,
           model: '{}'
         }).create();
       })
@@ -97,7 +113,7 @@ describe('Tdef test', function () {
     api.tdef({
         namespace: { name: 'yolo' },
         name: 'WontHappen',
-        version: '1.2.3',
+        version: 1,
         model: '{}'
       })
       .create()
@@ -111,8 +127,8 @@ describe('Tdef test', function () {
   it('should forbid wrong tdef structure', function (done) {
     api.tdef({
         namespace: { name: 'kevoree' },
-        name: 'MyType',
-        version: '25-SNAPSHOT',
+        name: 'mytype',
+        version: 1,
         model: '{}'
       })
       .create()
@@ -122,11 +138,11 @@ describe('Tdef test', function () {
       });
   });
 
-  it('should delete FakeType/1.2.3 in the "kevoree" namespace', function () {
+  it('should delete FakeType/1 in the "kevoree" namespace', function () {
     return api.tdef({
         namespace: { name: 'kevoree' },
         name: 'FakeType',
-        version: '1.2.3',
+        version: 1,
         model: '{}'
       })
       .delete();
