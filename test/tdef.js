@@ -70,7 +70,6 @@ describe('Tdef test', function () {
         expect(tdef).toExist();
         expect(tdef.name).toEqual('Ticker');
         expect(tdef.version).toEqual(3);
-        expect(tdef.namespace.name).toEqual('kevoree');
         done();
       })
       .catch(done);
