@@ -2,10 +2,10 @@
   "registry": {
     "host": "localhost",
     "port": 8080,
-    "ssl": false
-  },
-  "oauth": {
-    "client_secret": "kevoree_registryapp_secret",
-    "client_id": "kevoree_registryapp"
+    "ssl": false,
+    "oauth": {
+      "client_secret": "kevoree_registryapp_secret",
+      "client_id": "kevoree_registryapp"
+    }
   }
 }
