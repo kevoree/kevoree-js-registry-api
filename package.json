@@ -1,6 +1,6 @@
 {
   "name": "kevoree-registry-api",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "Kevoree Registry API v5",
   "main": "index.js",
   "scripts": {
@@ -21,7 +21,7 @@
   "license": "LGPL-3.0",
   "dependencies": {
     "joi": "^9.0.0",
-    "nconf": "^0.8.4",
+    "kevoree-nconf": "^0.8.5",
     "q": "^1.4.1",
     "url-template": "^2.0.7"
   },

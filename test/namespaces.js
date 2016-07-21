@@ -2,7 +2,7 @@
 
 var api = require('../index');
 var expect = require('expect');
-var nconf = require('nconf');
+var nconf = require('kevoree-nconf');
 
 nconf.use('file', {
   file: 'test/config.json'

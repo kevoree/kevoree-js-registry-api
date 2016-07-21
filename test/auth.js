@@ -2,11 +2,18 @@
 
 var api = require('../index');
 var expect = require('expect');
-var nconf = require('nconf');
+var nconf = require('kevoree-nconf');
 
 nconf.use('file', {
   file: 'test/config.json'
 });
+
+console.warn('----------------------------------------------------------------------');
+console.log();
+console.warn('THOSE TESTS MUST BE RUN AGAINST THE DEV H2 DB OF THE KEVOREE REGISTRY');
+console.warn('OTHERWISE THEY WILL FAIL. (yes I know it\'s kinda lame)');
+console.log();
+console.warn('----------------------------------------------------------------------');
 
 describe('Auth test', function () {
   this.timeout(2000);
