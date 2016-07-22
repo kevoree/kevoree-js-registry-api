@@ -9,7 +9,7 @@ nconf.use('file', {
 });
 
 describe('DeployUnit test', function () {
-  this.timeout(3000);
+  this.timeout(1000);
 
   beforeEach(function () {
     return api.auth({
@@ -61,7 +61,7 @@ describe('DeployUnit test', function () {
       })
       .delete()
       .finally(function () {
-        return api.du({
+        api.du({
             name: 'groupws',
             version: '1.0.0',
             platform: 'atari',
