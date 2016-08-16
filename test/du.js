@@ -2,11 +2,9 @@
 
 var api = require('../index');
 var expect = require('expect');
-var nconf = require('kevoree-nconf');
+var config = require('tiny-conf');
 
-nconf.use('file', {
-  file: 'test/config.json'
-});
+config.merge(require('./config.json'));
 
 describe('DeployUnit test', function () {
   this.timeout(1000);

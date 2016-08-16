@@ -2,11 +2,9 @@
 
 var api = require('../index');
 var expect = require('expect');
-var nconf = require('kevoree-nconf');
+var config = require('tiny-conf');
 
-nconf.use('file', {
-  file: 'test/config.json'
-});
+config.merge(require('./config.json'));
 
 console.warn('----------------------------------------------------------------------');
 console.log();
@@ -25,7 +23,7 @@ describe('Auth test', function () {
       })
       .login()
       .then(function () {
-        var auth = nconf.get('auth');
+        var auth = config.get('auth');
         expect(auth.access_token).toExist();
         expect(auth.token_type).toExist();
         expect(auth.refresh_token).toExist();
@@ -40,7 +38,7 @@ describe('Auth test', function () {
     api.auth()
       .logout()
       .then(function () {
-        var auth = nconf.get('auth');
+        var auth = config.get('auth');
         expect(auth.access_token).toNotExist();
         expect(auth.token_type).toNotExist();
         expect(auth.refresh_token).toNotExist();

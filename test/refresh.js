@@ -2,11 +2,9 @@
 
 var api = require('../index');
 var expect = require('expect');
-var nconf = require('kevoree-nconf');
+var config = require('tiny-conf');
 
-nconf.use('file', {
-  file: 'test/config.json'
-});
+config.merge(require('./config.json'));
 
 describe('Refresh test', function () {
   this.timeout(2000);
@@ -22,7 +20,7 @@ describe('Refresh test', function () {
   it('should refresh the user token', function (done) {
     api.refresh()
       .then(function () {
-        var auth = nconf.get('auth');
+        var auth = config.get('auth');
         expect(auth.access_token).toExist();
         expect(auth.token_type).toExist();
         expect(auth.refresh_token).toExist();
