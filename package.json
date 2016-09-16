@@ -1,6 +1,6 @@
 {
   "name": "kevoree-registry-api",
-  "version": "1.7.2",
+  "version": "1.7.3",
   "description": "Kevoree Registry API v5",
   "main": "index.js",
   "scripts": {
