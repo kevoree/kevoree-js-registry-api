@@ -1,12 +1,12 @@
 {
   "name": "kevoree-registry-api",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "description": "Kevoree Registry API v5",
   "main": "index.js",
   "scripts": {
     "test": "mocha",
-    "preinstall": "npm run build",
-    "build": "webpack"
+    "prepublish": "npm run bundle",
+    "bundle": "webpack"
   },
   "repository": {
     "type": "git",
