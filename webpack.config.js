@@ -8,7 +8,8 @@ module.exports = {
   entry: path.resolve(pkg.main),
   output: {
     filename: path.join('dist', pkg.name + '.js'),
-    library: 'KevoreeRegistryApi'
+    library: 'KevoreeRegistryApi',
+    libraryTarget: 'umd'
   },
   externals: {
     'tiny-conf': 'TinyConf',
