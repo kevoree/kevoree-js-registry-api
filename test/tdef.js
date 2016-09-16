@@ -17,8 +17,8 @@ describe('Tdef test', function () {
       .login();
   });
 
-  it('should get WSGroup/1 precisely', function (done) {
-    api.tdef({
+  it('should get WSGroup/1 precisely', function () {
+    return api.tdef({
         namespace: { name: 'kevoree' },
         name: 'WSGroup',
         version: 1
@@ -29,9 +29,7 @@ describe('Tdef test', function () {
         expect(tdef.name).toEqual('WSGroup');
         expect(tdef.version).toEqual(1);
         expect(tdef.namespace.name).toEqual('kevoree');
-        done();
-      })
-      .catch(done);
+      });
   });
 
   it('should return 404 on unknown tdef Yolo/8 in "foo"', function (done) {
@@ -58,7 +56,7 @@ describe('Tdef test', function () {
       .create();
   });
 
-  it('should get kevoree.Ticker/latest precisely', function (done) {
+  it('should get kevoree.Ticker/latest precisely', function () {
     api.tdef({
         name: 'Ticker',
         namespace: { name: 'kevoree' }
@@ -68,9 +66,7 @@ describe('Tdef test', function () {
         expect(tdef).toExist();
         expect(tdef.name).toEqual('Ticker');
         expect(tdef.version).toEqual(3);
-        done();
-      })
-      .catch(done);
+      });
   });
 
   it('should return 403 when not member of namespace', function (done) {

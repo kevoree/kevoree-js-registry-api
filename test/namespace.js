@@ -17,8 +17,8 @@ describe('Namespace test', function () {
       .login();
   });
 
-  it('should get namespace "kevoree"', function (done) {
-    api.namespace({
+  it('should get namespace "kevoree"', function () {
+    return api.namespace({
         name: 'kevoree'
       })
       .get()
@@ -27,9 +27,7 @@ describe('Namespace test', function () {
         expect(namespace.name).toEqual('kevoree');
         expect(namespace.owner.login).toEqual('kevoree');
         expect(namespace.members.length).toBeMoreThan(0);
-        done();
-      })
-      .catch(done);
+      });
   });
 
   it('should return 404 on unknown namespace "yoloswag"', function (done) {

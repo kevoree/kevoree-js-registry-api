@@ -9,23 +9,19 @@ config.merge(require('./config.json'));
 describe('Tdefs test', function () {
   this.timeout(2000);
 
-  it('should answer with all the type definitions', function (done) {
-    api.tdefs()
+  it('should answer with all the type definitions', function () {
+    return api.tdefs()
       .then(function (tdefs) {
         expect(tdefs).toExist();
         expect(tdefs.length).toBeMoreThan(0);
-        done();
-      })
-      .catch(done);
+      });
   });
 
-  it('should answer with the list of kevoree\'s type definitions', function (done) {
-    api.tdefs('kevoree')
+  it('should answer with the list of kevoree\'s type definitions', function () {
+    return api.tdefs('kevoree')
       .then(function (tdefs) {
         expect(tdefs).toExist();
         expect(tdefs.length).toBeMoreThan(0);
-        done();
-      })
-      .catch(done);
+      });
   });
 });

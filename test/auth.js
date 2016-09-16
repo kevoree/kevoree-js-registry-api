@@ -16,8 +16,8 @@ console.warn('------------------------------------------------------------------
 describe('Auth test', function () {
   this.timeout(2000);
 
-  it('should log the user "kevoree in"', function (done) {
-    api.auth({
+  it('should log the user "kevoree" in', function () {
+    return api.auth({
         login: 'kevoree',
         password: 'kevoree'
       })
@@ -29,13 +29,11 @@ describe('Auth test', function () {
         expect(auth.refresh_token).toExist();
         expect(auth.expires_at).toBeGreaterThanOrEqualTo(Math.floor(new Date().getTime() / 1000));
         expect(auth.scope).toEqual('read write');
-        done();
-      })
-      .catch(done);
+      });
   });
 
-  it('should log the current user out', function (done) {
-    api.auth()
+  it('should log "kevoree" out', function () {
+    return api.auth()
       .logout()
       .then(function () {
         var auth = config.get('auth');
@@ -44,8 +42,6 @@ describe('Auth test', function () {
         expect(auth.refresh_token).toNotExist();
         expect(auth.expires_at).toNotExist();
         expect(auth.scope).toNotExist();
-        done();
-      })
-      .catch(done);
+      });
   });
 });

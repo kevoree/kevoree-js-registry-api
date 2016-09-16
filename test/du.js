@@ -17,8 +17,8 @@ describe('DeployUnit test', function () {
       .login();
   });
 
-  it('should get kevoree.WSGroup/1 kevoree-group-ws/1.0.0/js precisely', function (done) {
-    api.du({
+  it('should get kevoree.WSGroup/1 kevoree-group-ws/1.0.0/js precisely', function () {
+    return api.du({
         name: 'kevoree-group-ws',
         version: '1.0.0',
         platform: 'js',
@@ -39,13 +39,11 @@ describe('DeployUnit test', function () {
         expect(du.typeDefinition.name).toEqual('WSGroup');
         expect(du.typeDefinition.version).toEqual(1);
         expect(du.typeDefinition.namespace.name).toEqual('kevoree');
-        done();
-      })
-      .catch(done);
+      });
   });
 
-  it('should create a new kevoree.WSGroup/1 groupws/1.0.0/atari', function (done) {
-    api.du({
+  it('should create a new kevoree.WSGroup/1 groupws/1.0.0/atari', function () {
+    return api.du({
         name: 'groupws',
         version: '1.0.0',
         platform: 'atari',
@@ -58,8 +56,12 @@ describe('DeployUnit test', function () {
         }
       })
       .delete()
-      .finally(function () {
-        api.du({
+      .catch(function () {
+        // ignore delete error
+        return Promise.resolve();
+      })
+      .then(function () {
+        return api.du({
             name: 'groupws',
             version: '1.0.0',
             platform: 'atari',
@@ -72,11 +74,7 @@ describe('DeployUnit test', function () {
               }
             }
           })
-          .create()
-          .then(function () {
-            done();
-          })
-          .catch(done);
+          .create();
       });
   });
 
@@ -123,8 +121,8 @@ describe('DeployUnit test', function () {
       .delete();
   });
 
-  it('should return 404 when unknown namespace', function (done) {
-    api.du({
+  it('should return 404 when unknown namespace', function () {
+    return api.du({
         typeDefinition: {
           name: 'WSGroup',
           version: 1,
@@ -141,12 +139,11 @@ describe('DeployUnit test', function () {
       .catch(function (err) {
         expect(err).toExist();
         expect(err.code).toEqual(404);
-        done();
       });
   });
 
-  it('should return 404 when unknown typeDef', function (done) {
-    api.du({
+  it('should return 404 when unknown typeDef', function () {
+    return api.du({
         typeDefinition: {
           name: 'Unknown',
           version: 1,
@@ -163,12 +160,11 @@ describe('DeployUnit test', function () {
       .catch(function (err) {
         expect(err).toExist();
         expect(err.code).toEqual(404);
-        done();
       });
   });
 
-  it('should return 404 when unknown version', function (done) {
-    api.du({
+  it('should return 404 when unknown version', function () {
+    return api.du({
         typeDefinition: {
           name: 'WSGroup',
           version: 42,
@@ -185,12 +181,11 @@ describe('DeployUnit test', function () {
       .catch(function (err) {
         expect(err).toExist();
         expect(err.code).toEqual(404);
-        done();
       });
   });
 
-  it('should not create when model is not given', function (done) {
-    api.du({
+  it('should not create when model is not given', function () {
+    return api.du({
         typeDefinition: {
           name: 'WSGroup',
           version: 1,
@@ -205,7 +200,6 @@ describe('DeployUnit test', function () {
       .create()
       .catch(function (err) {
         expect(err).toExist();
-        done();
       });
   });
 
