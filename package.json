@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "github.com/kevoree/kevoree-js-registry-api.git"
+    "url": "git@github.com:kevoree/kevoree-js-registry-api.git"
   },
   "keywords": [
     "kevoree",
