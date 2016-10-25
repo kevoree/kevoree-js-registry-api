@@ -1,0 +1,24 @@
+{
+  "name": "kevoree-registry-api",
+  "description": "Kevoree Registry API v5",
+  "main": "browser/kevoree-registry-api.js",
+  "authors": [
+    "Maxime Tricoire <max.tricoire@gmail.com>"
+  ],
+  "license": "LGPL-3.0",
+  "keywords": [
+    "kevoree",
+    "registry",
+    "client",
+    "api",
+    "rest"
+  ],
+  "homepage": "https://github.com/kevoree/kevoree-js-registry-api",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
