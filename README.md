@@ -1,5 +1,7 @@
 # kevoree-js-registry-api
 
+:warning: **DEPRECATED IN FAVOR OF [kevoree/kevoree-js-registry-client](https://github.com/kevoree/kevoree-js-registry-client)** :warning:
+
 Kevoree Registry Client API written in Javascript
 
 ## Tests
